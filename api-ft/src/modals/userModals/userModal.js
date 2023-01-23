@@ -1,18 +1,23 @@
-import userSchema from "./userSchema";
+import userSchema from "./userSchema.js";
 
-//create user
+//CRUD operation
+
+//creates user
 export const createUser = (newUserObj) => {
   return userSchema(newUserObj).save();
 };
-// read user @filter must be an object {}
+
+//read user
 export const getSingleUser = (filter) => {
   return userSchema.find(filter);
 };
-// update user
-export const getUserAndUpdate = (filter, updateObj) => {
-  return userSchema.findOneAndUpdate(filter, updateObj);
+
+//update user
+export const updateSingleUser = (filter, updateObj) => {
+  return userSchema.findONeAndUpdate(filter, updateObj);
 };
-// delete user
+
+//delete user
 export const deleteUserById = (_id) => {
   return userSchema.findByIdAndDelete(_id);
 };

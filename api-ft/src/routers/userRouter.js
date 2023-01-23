@@ -1,20 +1,23 @@
 import express from "express";
+import { createUser } from "../modals/userModals/userModal.js";
 
 const router = express.Router();
 
+//hit all method
 router.all("/", (req, res, next) => {
   console.log("Got hit to all router");
   next();
 });
 
-//creating new user
-
-router.post("/", (req, res, next) => {
+//creating user profile
+router.post("/", async (req, res, next) => {
   try {
     console.log(req.body);
+    const result = await createUser(req.body);
+
     res.json({
       status: "success",
-      message: "TO Insert user",
+      message: "To Insert User",
     });
   } catch (error) {
     next(error);

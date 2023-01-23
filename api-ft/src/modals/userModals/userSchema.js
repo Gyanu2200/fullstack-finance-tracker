@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     status: {
       type: String,
-      default: active,
+      default: "active",
     },
     name: {
       type: String,
@@ -24,4 +24,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("User11", userSchema); //users
+export default mongoose.model("user11", userSchema);

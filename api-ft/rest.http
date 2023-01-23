@@ -1,15 +1,16 @@
-### checking if the server is live 
+### checking if the server is live
 
-GET http://localhost:8000 
+GET http://localhost:8000/
 
 
-#========== USER API 
-### post new user
-POST http://localhost:8000/api/v1/user
+ # ============== USER API
+
+ ### post new user
+POST  http://localhost:8000/api/v1/user
 Content-Type: application/json
 
 {
-    "name": "Prem",
-    "email": "a@a.com",
+    "name":"Monday",
+    "email":"monday.gmail.com",
     "pin": 1234
 }
