@@ -5,7 +5,7 @@ GET http://localhost:8000/
 
  # ============== USER API
 
- ### post new user
+### POST new user
 POST  http://localhost:8000/api/v1/user
 Content-Type: application/json
 
@@ -14,3 +14,7 @@ Content-Type: application/json
     "email":"monday.gmail.com",
     "pin": 1234
 }
+
+### Get single user
+GET http://localhost:8000/api/v1/user
+Content-Type: application/json

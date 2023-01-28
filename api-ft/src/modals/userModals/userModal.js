@@ -9,7 +9,7 @@ export const createUser = (newUserObj) => {
 
 //read user
 export const getSingleUser = (filter) => {
-  return userSchema.find(filter);
+  return userSchema.findOne(filter);
 };
 
 //update user
