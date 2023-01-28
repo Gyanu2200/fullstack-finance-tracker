@@ -1,0 +1,15 @@
+.layout {
+  background: linear-gradient(yellow, green);
+}
+
+.login-page {
+  width: 400px;
+  border: 1px solid rgb(229, 226, 226);
+  padding: 2rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.24);
+  backdrop-filter: ;
+  margin: auto;
+
+  box-shadow: -5px 5px 15px 5px #dfdadaac;
+}
