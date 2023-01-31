@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { postTransaction } from "../../utils/axiosHelper";
 
 const initialState = {
   type: "",
@@ -7,7 +8,7 @@ const initialState = {
   transAmount: "",
 };
 
-export const TransForm = () => {
+export const TransForm = ({ fetchTransaction }) => {
   const [transData, setTransData] = useState({});
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,11 +19,14 @@ export const TransForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(transData);
     //call api to send data to database
-
+    const result = await postTransaction(transData);
+    const { data } = result;
+    fetchTransaction();
+    console.log(data);
     //rest the form
     setTransData(initialState);
   };
