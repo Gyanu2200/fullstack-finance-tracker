@@ -3,16 +3,17 @@ import mongoose from "mongoose";
 const transactionSchema = new mongoose.Schema(
   {
     type: {
-      type: "String",
+      type: String,
       required: true,
     },
-    name: {
-      type: "String",
+    transName: {
+      type: String,
       required: true,
     },
-    amount: {
-      type: "String",
+    transAmount: {
+      type: String,
       required: true,
+      min: 1,
     },
     userId: {
       type: mongoose.Types.ObjectId,

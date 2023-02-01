@@ -18,7 +18,10 @@ app.use(cors());
 
 // router
 import userRouter from "./src/routers/userRouter.js";
+import TransactionRouter from "./src/routers/transactionRouter/TransactionRouter.js";
+import { isAuth } from "./src/middleware/authMiddleware.js";
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/transaction", isAuth, TransactionRouter);
 
 // const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
