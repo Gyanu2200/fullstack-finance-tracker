@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { deleteTransaction } from "../../utils/axiosHelper.js";
 
-export const TransTable = ({ transaction }) => {
-  const [itemDelete, setItemDelete] = useState([]);
+export const TransTable = ({ transaction, fetchTransaction }) => {
+  const [itemToDelete, setItemToDelete] = useState([]);
   const calculateTotal = transaction.reduce(
     (acc, { transAmount, type }) =>
       type === "income" ? acc + +transAmount : acc - +transAmount,
@@ -11,7 +12,35 @@ export const TransTable = ({ transaction }) => {
 
   const handleOnSelect = (e) => {
     const { checked, value } = e.target;
-    setItemDelete([...itemDelete]);
+    if (checked) {
+      setItemToDelete([...itemToDelete, value]);
+    } else {
+      return setItemToDelete(itemToDelete.filter((_id) => _id !== value)); //item._id didnot work only if you pass _id destructure then worked
+    }
+  };
+
+  const handleAllSelect = (e) => {
+    const { checked } = e.target;
+    if (checked) {
+      setItemToDelete(transaction.map((item) => item._id));
+    } else {
+      setItemToDelete([]);
+    }
+  };
+  console.log(itemToDelete);
+
+  const handleOnDelete = async () => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${itemToDelete.length} transaction?`
+      )
+    ) {
+      const { status } = await deleteTransaction(itemToDelete);
+      if (status === "success") {
+        fetchTransaction();
+        setItemToDelete([]);
+      }
+    }
   };
   return (
     <div>
@@ -19,7 +48,15 @@ export const TransTable = ({ transaction }) => {
         <thead>
           <tr>
             <th>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                onChange={handleAllSelect}
+                checked={
+                  transaction.length
+                    ? transaction.length === itemToDelete.length
+                    : false
+                }
+              />
             </th>
             <th>#</th>
             <th>Transaction Type</th>
@@ -37,6 +74,7 @@ export const TransTable = ({ transaction }) => {
                     type="checkbox"
                     value={item._id}
                     onChange={handleOnSelect}
+                    checked={itemToDelete.includes(item._id)}
                   />
                 </td>
                 <td>{i + 1}</td>
@@ -62,9 +100,13 @@ export const TransTable = ({ transaction }) => {
           </tr>
         </tbody>
       </Table>
-      <div className="d-grid">
-        <Button variant="danger">Delete</Button>
-      </div>
+      {itemToDelete.length ? (
+        <div className="d-grid">
+          <Button variant="danger" onClick={handleOnDelete}>
+            item(s) {itemToDelete.length} Delete
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };

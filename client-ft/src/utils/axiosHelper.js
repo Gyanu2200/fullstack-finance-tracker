@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Next } from "react-bootstrap/esm/PageItem";
 
 const rootUrl = "http://localhost:8000/api/v1";
 const userUrl = rootUrl + "/user";
@@ -67,6 +68,29 @@ export const getTransaction = async () => {
   } catch (error) {
     return {
       status: "errror",
+      message: error.message,
+    };
+  }
+};
+
+export const deleteTransaction = async (_ids) => {
+  try {
+    const userId = getUserIdFromSessionStorage();
+
+    const { data } = await axios.delete(
+      transUrl,
+
+      {
+        headers: {
+          Authorization: userId,
+        },
+        data: _ids,
+      }
+    );
+    return data;
+  } catch (error) {
+    return {
+      status: "error",
       message: error.message,
     };
   }

@@ -19,7 +19,10 @@ export const Dashboard = () => {
   return (
     <Layout>
       <TransForm fetchTransaction={fetchTransaction} />
-      <TransTable transaction={transaction} />
+      <TransTable
+        transaction={transaction}
+        fetchTransaction={fetchTransaction}
+      />
     </Layout>
   );
 };
